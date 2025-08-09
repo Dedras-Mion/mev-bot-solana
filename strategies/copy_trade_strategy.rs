@@ -52,12 +52,9 @@ impl CopyTradeStrategy {
         
         for trader in &self.tracked_traders {
             let trades = self.get_recent_trades(trader).await?;
-            
             for trade in trades {
-
                 if trade.quantity >= self.trade_threshold && trade.quantity <= self.max_trade_amount {
                     let market = self.dex_manager.lock().await.get_market(&trade.market).await?;
-                    
                     let opportunity = CopyTradeOpportunity {
                         trader: *trader,
                         market,
@@ -65,7 +62,6 @@ impl CopyTradeStrategy {
                     };
                     opportunities.push(opportunity);
                 }
-                
             }
         }
         
@@ -74,7 +70,6 @@ impl CopyTradeStrategy {
 
     async fn get_recent_trades(&self, trader: &Pubkey) -> Result<Vec<Order>> {
         let signature_infos = self.rpc_client.get_signatures_for_address(trader)?;
-        
         let mut trades = Vec::new();
         
         for signature_info in signature_infos {
