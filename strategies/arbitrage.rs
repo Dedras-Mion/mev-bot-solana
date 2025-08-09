@@ -9,6 +9,7 @@ pub struct ArbitrageStrategy {}
 
 #[async_trait]
 impl Strategy for ArbitrageStrategy {
+    
     fn update(&mut self, _market_conditions: &MarketConditions) {}
 
     async fn find_opportunities(&self, _target_accounts: &HashMap<Pubkey, crate::AccountInfo>) -> Vec<MevOpportunity> {
