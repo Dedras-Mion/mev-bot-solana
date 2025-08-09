@@ -71,11 +71,9 @@ impl CopyTradeStrategy {
     async fn get_recent_trades(&self, trader: &Pubkey) -> Result<Vec<Order>> {
         let signature_infos = self.rpc_client.get_signatures_for_address(trader)?;
         let mut trades = Vec::new();
-        
         for signature_info in signature_infos {
             if let Some(signature) = signature_info.signature {
                 let transaction = self.rpc_client.get_transaction(&signature)?;
-                
                 if let Some(transaction) = transaction {
                     for instruction in transaction.transaction.message.instructions {
                         if let Some(dex_instruction) = DexInstruction::unpack(instruction) {
