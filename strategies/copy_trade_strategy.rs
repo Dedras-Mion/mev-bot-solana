@@ -54,6 +54,7 @@ impl CopyTradeStrategy {
             let trades = self.get_recent_trades(trader).await?;
             
             for trade in trades {
+
                 if trade.quantity >= self.trade_threshold && trade.quantity <= self.max_trade_amount {
                     let market = self.dex_manager.lock().await.get_market(&trade.market).await?;
                     
@@ -64,6 +65,7 @@ impl CopyTradeStrategy {
                     };
                     opportunities.push(opportunity);
                 }
+                
             }
         }
         
