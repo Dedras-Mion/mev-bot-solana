@@ -15,6 +15,7 @@ pub struct ArbitrageStrategy {
 }
 
 impl ArbitrageStrategy {
+
     pub fn new(rpc_client: RpcClient, dex_manager: DexManager, min_profit_threshold: f64) -> Self {
         ArbitrageStrategy {
             rpc_client,
@@ -24,6 +25,7 @@ impl ArbitrageStrategy {
     }
 
     pub async fn find_arbitrage_opportunities(&self, market_conditions: &MarketConditions) -> Vec<ArbitrageOpportunity> {
+       
         let mut opportunities = Vec::new();
 
         let token_prices = market_conditions.token_prices.clone();
